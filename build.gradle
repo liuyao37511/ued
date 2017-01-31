@@ -1,0 +1,25 @@
+group 'cn.com.duiba'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenLocal()
+    maven { url "http://nexus.dui88.com:8081/nexus/content/groups/public/"}
+    mavenCentral()
+}
+
+dependencies{
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.3.8.RELEASE'
+    compile('commons-lang:commons-lang:2.6')
+    compile('com.google.guava:guava:18.0')
+    compile('com.aliyun.oss:aliyun-sdk-oss:2.4.0')
+    testCompile 'junit:junit:4.+'
+}
