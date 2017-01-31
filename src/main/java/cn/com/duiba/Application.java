@@ -20,9 +20,9 @@ import java.util.Map;
 @Configuration
 @SpringBootApplication
 @ImportResource("classpath*:spring-project.xml")
-@PropertySource(ignoreResourceNotFound=false, value="${duiba.config.location}")
 public class Application extends SpringBootServletInitializer {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
@@ -33,14 +33,6 @@ public class Application extends SpringBootServletInitializer {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        try {
-            long start = System.currentTimeMillis();
-            SpringApplication.run(Application.class, args);
-            long period = System.currentTimeMillis() - start;
-            log.error("Application start successfully in "+period+" ms.");
-        } catch (Exception e) {
-            log.error("Application start error :", e);
-            System.exit(-1);
-        }
+        SpringApplication.run(Application.class, args);
     }
 }
