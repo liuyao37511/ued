@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="BallotEntity" type="cn.com.duiba.domain.entity.BallotEntity"/>
+        <typeAlias alias="VoteLogEntity" type="cn.com.duiba.domain.entity.VoteLogEntity"/>
+        <typeAlias alias="WorksEntity" type="cn.com.duiba.domain.entity.WorksEntity"/>
+        <typeAlias alias="WriterEntity" type="cn.com.duiba.domain.entity.WriterEntity"/>
+    </typeAliases>
+</configuration>

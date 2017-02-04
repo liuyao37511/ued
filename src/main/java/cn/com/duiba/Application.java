@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Configuration
 @SpringBootApplication
-@ImportResource("classpath*:spring-project.xml")
+@ImportResource("classpath*:spring/spring-project.xml")
 public class Application extends SpringBootServletInitializer {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 

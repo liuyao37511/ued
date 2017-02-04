@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${ued.datasource.driver}"/>
+        <property name="jdbcUrl" value="${ued.datasource.url}"/>
+        <property name="user" value="${ued.datasource.username}"/>
+        <property name="password" value="${ued.datasource.password}"/>
+        <property name="initialPoolSize" value="5"/>
+        <property name="maxIdleTime" value="3"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg>
+            <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+                <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+                <property name="dataSource" ref="dataSource"/>
+                <property name="mapperLocations" value="classpath*:mybatis/domain/*.xml"/>
+                <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- 配置Spring的事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 注解方式配置事务,在service中使用@Transactional使用事务,由于事务不能跨越数据库,必须指定value,比如consumer/credits -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+</beans>

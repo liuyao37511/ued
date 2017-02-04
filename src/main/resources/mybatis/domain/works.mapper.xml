@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.com.duiba.dao.WorksDao">
+
+    <select id="findAllWorks" resultType="WorksEntity">
+        select works_id
+        from works
+        where ballot_id = #{ballotId}
+    </select>
+
+    <select id="find" resultType="WorksEntity" parameterType="Long">
+        SELECT <include refid="fields"/>
+        from works
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByIds" resultType="WorksEntity" parameterType="List">
+        SELECT <include refid="fields"/>
+        from works
+        WHERE id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </select>
+
+
+    <update id="incrScope" parameterType="Long">
+        UPDATE works
+        SET score = score + 1,gmt_modified = now()
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByWriterIdAndCompany" parameterType="Map" resultType="WorksEntity">
+        SELECT <include refid="fields"/>
+        FROM works
+        WHERE writer_id = #{writerId} AND company = #{company}
+    </select>
+
+    <update id="update" parameterType="WorksEntity">
+        UPDATE works
+        SET title = #{title},json_context=#{jsonContext},gmt_modified=now()
+        WHERE id= #{id}
+    </update>
+
+    <insert id="insert" parameterType="WorksEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO works(writer_id,company,title,json_context,score,gmt_create,gmt_modified)
+        VALUES (#{writerId},#{company},#{title},#{jsonContext},0,now(),now())
+    </insert>
+
+    <sql id="fields">
+        id as id,
+        writer_id as writerId,
+        company as company,
+        title as title,
+        json_context as jsonContext,
+        score as score,
+        gmt_create as gmtCreate,
+        gmt_modified as gmtModified
+    </sql>
+</mapper>

@@ -36,7 +36,7 @@ public class DubiaPropertiesFactoryBean extends PropertiesFactoryBean {
     }
 
     public static void main(String[] args) {
-        String code="joadfjds";
+        String code="EOogKlKguRo7Kc4jZq2rlzrDTFcoJC";
         String value=BlowfishUtils.encryptBlowfish(code, secret);
         System.out.println(value);
     }

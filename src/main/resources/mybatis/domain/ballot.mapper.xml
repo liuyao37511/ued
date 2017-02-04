@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.com.duiba.dao.BallotDao">
+
+    <select id="findByCode" resultType="BallotEntity" parameterType="String">
+        select <include refid="fields" />
+        from ballot
+        where code = #{code}
+    </select>
+
+    <sql id="fields">
+        id as id,
+        code as code,
+        gmt_create as gmtCreate,
+        gmt_modified as gmtModified
+    </sql>
+</mapper>

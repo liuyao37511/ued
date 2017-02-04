@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.com.duiba.dao.WriterDao">
+
+    <select id="find" resultType="WriterEntity" parameterType="Long">
+        select <include refid="fields" />
+        from writer
+        where id = #{id}
+        LIMIT 1
+    </select>
+
+
+    <select id="findByAccount" resultType="WriterEntity" parameterType="String">
+        select <include refid="fields" />
+        from writer
+        where account = #{account}
+        LIMIT 1
+    </select>
+
+    <insert id="insert" parameterType="WriterEntity">
+        INSERT INTO writer(account,password,writer_name,gmt_create,gmt_modified)
+        VALUES (#{account},#{password},#{writerName},now(),now())
+    </insert>
+
+    <sql id="fields">
+        id as id,
+        account as account,
+        password as password,
+        writer_name as writerName,
+        gmt_create as gmtCreate,
+        gmt_modified as gmtModified
+    </sql>
+</mapper>

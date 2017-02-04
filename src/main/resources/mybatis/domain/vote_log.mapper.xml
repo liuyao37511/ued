@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.com.duiba.dao.VoteLogDao">
+
+    <select id="findWorksIdByBallotId" resultType="Long" parameterType="Long">
+        select works_id
+        from vote_Log
+        where ballot_id = #{ballotId}
+    </select>
+
+    <insert id="insertLog" parameterType="Map">
+        INSERT INTO vote_Log(ballot_id,works_id,gmt_create,gmt_modified)
+        VALUES (#{ballotId},#{worksId},now(),now())
+    </insert>
+
+    <sql id="fields">
+        id as id,
+        ballot_id as ballotId,
+        works_id as worksId,
+        gmt_create as gmtCreate,
+        gmt_modified as gmtModified
+    </sql>
+</mapper>
