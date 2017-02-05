@@ -14,8 +14,8 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * Created by liuyao on 2017/2/1.
  */
-public class BaseDao implements ApplicationContextAware{
-
+public class BaseDao{
+    @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
     public int insert(String statement) {
@@ -95,8 +95,4 @@ public class BaseDao implements ApplicationContextAware{
         return getClass().getName()+"."+method;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        //this.sqlSessionTemplate = applicationContext.getBean(SqlSessionTemplate.class);
-    }
 }

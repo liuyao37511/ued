@@ -6,10 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.duiba.domain.dto.WriterDto;
@@ -21,6 +18,7 @@ import cn.com.duiba.utils.MessageDigestUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -36,24 +34,25 @@ public class LoginController {
 
     @RequestMapping(value = "/index")
     public ModelAndView index(){
-        return new ModelAndView("index");
+        return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/doLogin")
-    public JsonRender doLogin(HttpServletResponse response,@RequestParam String account, @RequestParam String password){
+    @ResponseBody
+    @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
+    public JsonRender doLogin(HttpServletResponse response,@RequestBody WriterEntity params){
         try{
-            WriterEntity writer = writerService.findWriterByAccount(account);
+            WriterEntity writer = writerService.findWriterByAccount(params.getAccount());
             if(writer==null){
                 throw new Exception("账号或者密码错误");
             }
-            String newPassword = BlowfishUtils.encryptBlowfish(MessageDigestUtils.SHA(password), loginEncryptKey);
+            String newPassword = BlowfishUtils.encryptBlowfish(MessageDigestUtils.SHA(params.getPassword()), loginEncryptKey);
             if(!StringUtils.equals(newPassword,writer.getPassword())){
                 throw new Exception("账号或者密码错误");
             }
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("time", new Date().getTime());
-            jsonObject.put("wid", 1);
+            jsonObject.put("wid", writer.getId());
             String envalue = SecureTool.encryptWriterCookie(jsonObject.toJSONString());
 
             Cookie cookie = new Cookie("wdata3", envalue);
@@ -67,8 +66,8 @@ public class LoginController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/doSign")
-    public JsonRender doSign(@RequestBody WriterDto writer){
+    @RequestMapping(value = "/doSign",method = RequestMethod.POST)
+    public JsonRender doSign(@RequestBody @Valid WriterDto writer){
         try{
             writerService.doSign(writer);
             return JsonRender.successResult();

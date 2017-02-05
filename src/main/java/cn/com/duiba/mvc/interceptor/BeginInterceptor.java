@@ -25,6 +25,7 @@ public class BeginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
         RequestTool.removeRequestInThreadLocal();
+        response.setCharacterEncoding("utf-8");
     }
 
 }

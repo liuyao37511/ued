@@ -95,8 +95,7 @@ public class WorksService {
 
         WorksJsonDto json = new WorksJsonDto();
         json.setMainImage(params.getMainImage());
-        json.setDescription(params.getDescription());
-        json.setDefimage(params.getDefimage());
+        json.setDefImage(params.getDefImage());
         String jsonStr = JSONObject.toJSONString(json);
         save.setJsonContext(jsonStr);
         if (worksEntity == null) {

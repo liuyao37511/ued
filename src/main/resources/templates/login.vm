@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="main" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://yun.duiba.com.cn/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>卡通形象设计大赛</title>
+    <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:3000/css/degame-login.css" rel="stylesheet">
+</head>
+<body class="container">
+<header class="header">
+    <h2>卡通形象设计大赛</h2>
+</header>
+<section class="section">
+    <div ui-view></div>
+</section>
+
+<script type="text/ng-template" id="login.html">
+    <section>
+        <header class="title">
+            <h3>用户登录</h3>
+        </header>
+        <form class="form-horizontal form-login" ng-submit="mv.doLoign()">
+            <div class="input-group">
+                <span class="input-group-addon" id="account">账号:</span>
+                <input type="text" class="form-control" ng-model="mv.account" required placeholder="请输入您的账号" aria-describedby="account">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="password">密码:</span>
+                <input type="password" class="form-control" ng-model="mv.password" required placeholder="请输入您的密码" aria-describedby="password">
+            </div>
+            <div class="input-group">
+                <button type="submit" class="login btn btn-info">登录</button>
+            </div>
+            <div class="input-group wenzi-btn-box">
+                <span class="wenzi-btn" ui-sref="sign">>注册<</span>
+            </div>
+        </form>
+    </section>
+</script>
+<script type="text/ng-template" id="sign.html">
+    <section>
+        <header class="title">
+            <h3>用户注册</h3>
+        </header>
+        <form class="form-horizontal form-login" ng-submit="mv.doSign()">
+            <div class="input-group">
+                <span class="input-group-addon" id="saccount">账号:</span>
+                <input type="text" class="form-control" ng-model="mv.account" placeholder="请输入您的账号" aria-describedby="saccount">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sname">姓名:</span>
+                <input type="text" class="form-control" ng-model="mv.name" placeholder="请输入您的名字" aria-describedby="sname">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="spassword">密码:</span>
+                <input type="password" class="form-control" ng-model="mv.password" placeholder="请输入您的密码" aria-describedby="spassword">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="dpassword">密码确认:</span>
+                <input type="password" class="form-control" ng-model="mv.dpassword" placeholder="请再输入一次密码" aria-describedby="dpassword">
+            </div>
+            <div class="input-group">
+                <button type="submit" class="login btn btn-info">注册</button>
+            </div>
+            <div class="input-group wenzi-btn-box">
+                <span class="wenzi-btn" ui-sref="login">>登录<</span>
+            </div>
+        </form>
+    </section>
+</script>
+<script type="text/ng-template" id="main.html">
+    <section>
+        <header class="title" ng-init='mv.companys={1:"推啊",2:"麦啦"};'>
+            <h3>作品管理(<span style="color: red">{{mv.companys[mv.company]}}</span>)</h3>
+        </header>
+        <form class="form-horizontal form-main" ng-submit="mv.submit()">
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9 companys">
+                    <button type="button" class="login btn btn-lg btn-info" ng-click="mv.selectCompany(1);">推啊</button>
+                    <button type="button" class="login btn btn-lg btn-warning" ng-click="mv.selectCompany(2);">麦啦</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="wname" class="col-sm-3 control-label">作品主题:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="mv.title" id="wname" required placeholder="请输入作品的主题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="wname" class="col-sm-3 control-label">作品主图:</label>
+                <div class="col-sm-9">
+                    <figure class="mainImage-box">
+                        <img ng-src="{{mv.mainImage}}" ng-if="!!mv.mainImage">
+                        <div class="mainImage" ng-if="!mv.mainImage"></div>
+                        <div>
+                            <button type="button" class="login btn btn-info" ngf-select="mv.uploadMainImage($file)">上传作品主图</button>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-sm-3 control-label">作品描述:</label>
+                <div class="col-sm-9">
+                    <textarea type="text" rows="3" class="form-control" ng-model="mv.description" required id="description" placeholder="简单介绍一下自己的作品"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-sm-3 control-label">作品详图:</label>
+                <div class="col-sm-9">
+                    <button type="button" class="login btn btn-info" ngf-select="mv.uploadDefImage($file)">上传作品详图(宫格图)</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <img ng-src="{{mv.defimage}}" ng-if="!!mv.defimage">
+                    <div class="defimage" ng-if="!mv.defimage"></div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="login btn btn-info">保存</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</script>
+
+<script src="//yun.duiba.com.cn/js/jquery-1.10.2.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/angular-ui-router.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/ng-file-upload-shim.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/ng-file-upload.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/duiba-angular-v1.js"></script>
+<script src="http://localhost:3000/js/manage/deGame-login.js"></script>
+</body>
+</html>

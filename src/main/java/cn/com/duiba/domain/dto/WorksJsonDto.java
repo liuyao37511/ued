@@ -10,7 +10,7 @@ public class WorksJsonDto implements Serializable {
     private static final long serialVersionUID = -5644913960580336310L;
     private String mainImage;
     private String description;
-    private String defimage;
+    private String defImage;
 
     public String getMainImage() {
         return mainImage;
@@ -28,11 +28,11 @@ public class WorksJsonDto implements Serializable {
         this.description = description;
     }
 
-    public String getDefimage() {
-        return defimage;
+    public String getDefImage() {
+        return defImage;
     }
 
-    public void setDefimage(String defimage) {
-        this.defimage = defimage;
+    public void setDefImage(String defImage) {
+        this.defImage = defImage;
     }
 }

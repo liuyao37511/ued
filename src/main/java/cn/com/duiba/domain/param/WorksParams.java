@@ -17,9 +17,7 @@ public class WorksParams {
     @NotBlank
     private String mainImage;
     @NotBlank
-    private String description;
-    @NotBlank
-    private String defimage;
+    private String defImage;
 
     public Long getWriterId() {
         return writerId;
@@ -53,19 +51,11 @@ public class WorksParams {
         this.mainImage = mainImage;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDefImage() {
+        return defImage;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDefimage() {
-        return defimage;
-    }
-
-    public void setDefimage(String defimage) {
-        this.defimage = defimage;
+    public void setDefImage(String defImage) {
+        this.defImage = defImage;
     }
 }
