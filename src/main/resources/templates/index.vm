@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>卡通形象设计大赛</title>
     <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://localhost:3000/css/degame.css" rel="stylesheet">
+    <link href="/css/degame.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -116,6 +116,6 @@
 <script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script src="http://localhost:3000/js/manage/deGame.js"></script>
+<script src="/js/deGame.js"></script>
 </body>
 </html>
