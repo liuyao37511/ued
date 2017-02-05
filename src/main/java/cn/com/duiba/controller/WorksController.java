@@ -7,8 +7,15 @@ import cn.com.duiba.mvc.RequestTool;
 import cn.com.duiba.service.OSSFileService;
 import cn.com.duiba.service.WorksService;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.IOUtils;
+import com.google.common.base.Charsets;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
+import com.google.common.io.ByteSink;
+import com.google.common.io.CharSink;
+import com.google.common.io.FileWriteMode;
+import com.google.common.io.Files;
+import org.apache.catalina.util.IOTools;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -73,7 +81,10 @@ public class WorksController {
         }
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile f = multiRequest.getFile("file");
-        if (f.getSize() > 2*1024 * 1024) {
+        if(f==null){
+            throw new Exception("空文件");
+        }
+        if (f.getSize() > 10*1024 * 1024) {
             throw new Exception("文件大小不能超过2M");
         }
         if (Objects.equal(null, f) || f.isEmpty()) {
@@ -90,11 +101,11 @@ public class WorksController {
         String objectName = "ued/" + name;
 
         String webRootDir = RequestTool.getWebRootDir();
-        File userDir = new File(webRootDir, "/upload/");
+        File userDir = new File(webRootDir+"/upload/");
         if(!userDir.exists()){
             userDir.mkdirs();
         }
-        File file = new File(userDir, objectName);
+        File file = new File(userDir, name);
         try{
             file.createNewFile();
             f.transferTo(file);
@@ -103,6 +114,7 @@ public class WorksController {
             json.put("url",url);
             return JsonRender.successResult(json);
         }catch(Exception e){
+            e.printStackTrace();
             return JsonRender.failResult(e);
         }finally {
             if(file.exists()){

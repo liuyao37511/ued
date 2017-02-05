@@ -1,6 +1,121 @@
-<html>
-    <head></head>
-    <body>
-        你是不是有点溜
-    </body>
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="main" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://yun.duiba.com.cn/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>卡通形象设计大赛</title>
+    <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:3000/css/degame.css" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/img_head_new.png" alt="">
+</header>
+<section class="section" ng-controller="mainCtrl as mv">
+    <div class="main">
+        <div class="nodata" ng-if="!mv.tuiaList.length && !mv.mailaList.length">暂时没有作品提交</div>
+        <div class="tip" ng-show="mv.tuiaList.length!=0">
+            <header>
+                <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/tip1.png" alt="">
+            </header>
+            <section>
+                <div class="item" ng-repeat="item in mv.tuiaList">
+                    <div class="image-box" ng-click="mv.openDetails(item.id)">
+                        <img ng-src="{{item.image}}" alt="">
+                    </div>
+                    <div class="description">
+                        <div class="title" ng-bind="item.title"></div>
+                        <div class="credits">
+                            <span class="integral" ng-bind="item.integral"></span><span>票</span>
+                        </div>
+                        <div class="btn-box">
+                            <span class="button" ng-click="mv.topiao(item);" ng-class="{did:item.isTou}"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="tip" ng-show="mv.mailaList.length!=0">
+            <header>
+                <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/tip2.png" alt="">
+            </header>
+            <section>
+                <div class="item" ng-repeat="item in mv.mailaList">
+                    <div class="image-box" ng-click=mv.openDetails(item.id)>
+                        <img ng-src="{{item.image}}" alt="">
+                    </div>
+                    <div class="description">
+                        <div class="title" ng-bind="item.title"></div>
+                        <div class="credits">
+                            <span class="integral" ng-bind="item.integral"></span><span>票</span>
+                        </div>
+                        <div class="btn-box">
+                            <span class="button" ng-click="mv.topiao(item);" ng-class="{did:item.isTou}"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/footer.png" alt="">
+</footer>
+
+<script type="text/ng-template" id="details.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="p.close()">×</button>
+    </div>
+    <div class="modal-body">
+        <section class="d-imageBox">
+            <img ng-src="{{p.defImage}}">
+        </section>
+    </div>
+    <div class="modal-footer">
+        <span class="welcome" ng-click="p.close()">谢谢欣赏</span>
+    </div>
+</script>
+
+<script type="text/ng-template" id="vote.html">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+        <button type="button" class="close" ng-click="p.close()">×</button>
+        <h4 class="modal-title">投票邀请码</h4>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="text" class="form-control" ng-model="p.token" placeholder="请输入投票邀请码">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <span class="welcome" ng-click="p.submit()">确认</span>
+    </div>
+</script>
+
+<script type="text/ng-template" id="doVote.html">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+        <button type="button" class="close" ng-click="p.close()">×</button>
+        <h4 class="modal-title">确认投票</h4>
+    </div>
+    <div class="modal-body">
+        <div class="toupiao-info">
+            <p>你将把票投给作品:<span style="color: rgb(47, 188, 241);">{{p.title}}</span>,请确认...</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <span class="welcome" ng-click="p.close()">取消</span>
+        <span class="welcome" ng-click="p.submit()">确认</span>
+    </div>
+</script>
+
+<script src="//yun.duiba.com.cn/js/jquery-1.10.2.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
+<script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script src="http://localhost:3000/js/manage/deGame.js"></script>
+</body>
 </html>

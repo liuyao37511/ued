@@ -15,7 +15,7 @@ import java.util.Map;
 public class WorksDao extends BaseDao {
 
     public List<WorksEntity> findAllWorks(){
-        return selectList("WorksEntity");
+        return selectList("findAllWorks");
     }
 
     public WorksEntity find(Long id){
@@ -26,7 +26,9 @@ public class WorksDao extends BaseDao {
         if(ids.isEmpty()){
             return Collections.emptyList();
         }
-        return selectList("findByIds",ids);
+        Map<String,Object> params = Maps.newHashMap();
+        params.put("ids",ids);
+        return selectList("findByIds",params);
     }
 
     public int incrScope(Long id){

@@ -5,12 +5,12 @@
 
     <select id="findWorksIdByBallotId" resultType="Long" parameterType="Long">
         select works_id
-        from vote_Log
+        from vote_log
         where ballot_id = #{ballotId}
     </select>
 
     <insert id="insertLog" parameterType="Map">
-        INSERT INTO vote_Log(ballot_id,works_id,gmt_create,gmt_modified)
+        INSERT INTO vote_log(ballot_id,works_id,gmt_create,gmt_modified)
         VALUES (#{ballotId},#{worksId},now(),now())
     </insert>
 

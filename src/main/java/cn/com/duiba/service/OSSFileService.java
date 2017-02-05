@@ -37,7 +37,7 @@ public class OSSFileService {
      */
     public String uploadOssImg(File file, String objectName) throws Exception {
         // 输出结果
-        if (ossClient.doesBucketExist(bucketName)) {
+        if (!ossClient.doesBucketExist(bucketName)) {
             throw new Exception("Oss实例不存在");
         }
         try {

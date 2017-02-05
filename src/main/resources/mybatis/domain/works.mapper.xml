@@ -4,9 +4,8 @@
 <mapper namespace="cn.com.duiba.dao.WorksDao">
 
     <select id="findAllWorks" resultType="WorksEntity">
-        select works_id
+        select <include refid="fields"/>
         from works
-        where ballot_id = #{ballotId}
     </select>
 
     <select id="find" resultType="WorksEntity" parameterType="Long">
@@ -15,7 +14,7 @@
         WHERE id = #{id}
     </select>
 
-    <select id="findByIds" resultType="WorksEntity" parameterType="List">
+    <select id="findByIds" resultType="WorksEntity" parameterType="Map">
         SELECT <include refid="fields"/>
         from works
         WHERE id in
