@@ -20,7 +20,6 @@ buildscript {
 }
 
 jar {
-    baseName = 'ued'
     version =  '1.0'
     manifest { attributes 'Main-Class': 'cn.com.duiba.Application' }
 }
