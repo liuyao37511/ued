@@ -13,7 +13,9 @@ public class BallotDao extends BaseDao{
         return selectOne("findByCode",code);
     }
 
-
-
-
+    public int insert(String code){
+        BallotEntity insert = new BallotEntity();
+        insert.setCode(code);
+        return insert("insert",insert);
+    }
 }

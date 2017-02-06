@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>卡通形象设计大赛</title>
     <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/degame.css" rel="stylesheet">
+    <link href="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/degame-1.0.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -81,21 +81,6 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="vote.html">
-    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
-        <button type="button" class="close" ng-click="p.close()">×</button>
-        <h4 class="modal-title">投票邀请码</h4>
-    </div>
-    <div class="modal-body">
-        <div>
-            <input type="text" class="form-control" ng-model="p.token" placeholder="请输入投票邀请码">
-        </div>
-    </div>
-    <div class="modal-footer">
-        <span class="welcome" ng-click="p.submit()">确认</span>
-    </div>
-</script>
-
 <script type="text/ng-template" id="doVote.html">
     <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
         <button type="button" class="close" ng-click="p.close()">×</button>
@@ -103,7 +88,7 @@
     </div>
     <div class="modal-body">
         <div class="toupiao-info">
-            <p>你将把票投给作品:<span style="color: rgb(47, 188, 241);">{{p.title}}</span>,请确认...</p>
+            <p>你将把票投给作品:<span style="color: rgb(47, 188, 241);">{{p.title}}</span></p>
         </div>
     </div>
     <div class="modal-footer">
@@ -116,6 +101,6 @@
 <script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/deGame.js"></script>
+<script src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/deGame-1.0.js"></script>
 </body>
 </html>

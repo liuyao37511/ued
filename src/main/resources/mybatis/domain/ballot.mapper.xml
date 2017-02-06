@@ -9,6 +9,11 @@
         where code = #{code}
     </select>
 
+    <insert id="insert" parameterType="BallotEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ballot(code,gmt_create,gmt_modified)
+        VALUES (#{code},now(),now())
+    </insert>
+
     <sql id="fields">
         id as id,
         code as code,

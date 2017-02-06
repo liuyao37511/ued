@@ -37,14 +37,16 @@ public class BallotService {
     @Value("${ued.canTouNum}")
     private Integer canTouNum;
 
-    public void jiaoyangToken(String token) throws Exception {
+    public String jiaoyangToken(String token) throws Exception {
         if(StringUtils.isBlank(token)){
             throw new Exception("选票码无效");
         }
         BallotEntity entity = ballotDao.findByCode(token);
-        if(entity==null){
-            throw new Exception("选票码无效");
+        if(entity!=null){
+            throw new Exception("选票码已经存在");
         }
+        ballotDao.insert(token);
+        return token;
     }
 
     @Transactional

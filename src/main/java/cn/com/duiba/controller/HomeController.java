@@ -69,8 +69,10 @@ public class HomeController {
     @RequestMapping(value = "/yangzhengToken")
     public JsonRender yangzhengToken(@RequestParam String token){
         try{
-            ballotService.jiaoyangToken(token);
-            return JsonRender.successResult();
+            String yangzhengtoken = ballotService.jiaoyangToken(token);
+            JsonRender json = JsonRender.successResult();
+            json.put("token",yangzhengtoken);
+            return json;
         }catch (Exception e){
             return JsonRender.failResult(e);
         }
