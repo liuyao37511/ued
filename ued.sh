@@ -4,7 +4,7 @@ function start() {
         JAVA_OPTS="$JAVA_OPTS -server -Xmx256m -Xms256m -XX:PermSize=64M -XX:MaxPermSize=64m"
         JAVA_OPTS="$JAVA_OPTS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/root/ued/logs/ued.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/root/ued/logs/ued.hprof"
         export JAVA_OPTS
-        nohup java $JAVA_OPTS -jar /root/ued/build/libs/ued-1.0-SNAPSHOT.jar  --spring.config.location=classpath:/application.properties,file:/root/ued.properties > /dev/null &
+        nohup java $JAVA_OPTS -jar /root/ued/build/libs/ued-1.0.jar --spring.config.location=classpath:/application.properties,file:/root/ued.properties > /dev/null &
 }
 
 function stop() {
