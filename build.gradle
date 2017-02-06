@@ -5,9 +5,29 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "http://nexus.dui88.com:8081/nexus/content/groups/public/" }
+        mavenCentral()
+    }
+    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.8.RELEASE") }
+}
+
+jar {
+    baseName = 'ued'
+    version =  '1.0'
+    manifest { attributes 'Main-Class': 'cn.com.duiba.Application' }
+}
+
+bootRepackage {
+    mainClass = 'cn.com.duiba.Application'
+}
 
 repositories {
     mavenLocal()
