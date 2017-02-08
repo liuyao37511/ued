@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>卡通形象设计大赛</title>
     <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/degame-1.0.css" rel="stylesheet">
+    <link href="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/degame-2.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -71,14 +71,9 @@
     <div class="modal-header">
         <button type="button" class="close" ng-click="p.close()">×</button>
     </div>
-    <div class="modal-body">
-        <section class="d-imageBox">
-            <img ng-src="{{p.defImage}}">
-        </section>
-    </div>
-    <div class="modal-footer">
-        <span class="welcome" ng-click="p.close()">谢谢欣赏</span>
-    </div>
+    <section class="d-imageBox">
+        <img ng-src="{{p.defImage}}">
+    </section>
 </script>
 
 <script type="text/ng-template" id="doVote.html">
@@ -101,6 +96,6 @@
 <script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/deGame-1.0.js"></script>
+<script src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/deGame-2.0.js"></script>
 </body>
 </html>
