@@ -10,51 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>卡通形象设计大赛</title>
     <link href="//yun.duiba.com.cn/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/degame-2.css" rel="stylesheet">
+    <link href="//yun.duiba.com.cn/upload/softo5ca2x.css" rel="stylesheet">
 </head>
 <body>
-<header class="header">
-    <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/img_head_new.png" alt="">
-</header>
 <section class="section" ng-controller="mainCtrl as mv">
     <div class="main">
-        <div class="nodata" ng-if="!mv.tuiaList.length && !mv.mailaList.length">暂时没有作品提交</div>
-        <div class="tip" ng-show="mv.tuiaList.length!=0">
+        <div class="nodata" ng-if="!mv.duibaList.length">暂时没有作品提交</div>
+        <div class="tip" ng-show="mv.duibaList.length!=0">
             <header>
-                <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/tip1.png" alt="">
+                <img src="http://yun.duiba.com.cn/upload/7ul5po6asi.png" alt="">
             </header>
             <section>
-                <div class="item" ng-repeat="item in mv.tuiaList">
+                <div class="item" ng-repeat="item in mv.duibaList">
                     <div class="image-box" ng-click="mv.openDetails(item.id)">
                         <img ng-src="{{item.image}}" alt="">
+                        <div class="yulang"></div>
                     </div>
                     <div class="description">
                         <div class="title" ng-bind="item.title"></div>
-                        <div class="credits">
-                            <span class="integral" ng-bind="item.integral"></span><span>票</span>
-                        </div>
+                        <div class="wName" ng-bind="'-'+item.writerName+'作品-'"></div>
                         <div class="btn-box">
-                            <span class="button" ng-click="mv.topiao(item);" ng-class="{did:item.isTou}"></span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="tip" ng-show="mv.mailaList.length!=0">
-            <header>
-                <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/tip2.png" alt="">
-            </header>
-            <section>
-                <div class="item" ng-repeat="item in mv.mailaList">
-                    <div class="image-box" ng-click=mv.openDetails(item.id)>
-                        <img ng-src="{{item.image}}" alt="">
-                    </div>
-                    <div class="description">
-                        <div class="title" ng-bind="item.title"></div>
-                        <div class="credits">
-                            <span class="integral" ng-bind="item.integral"></span><span>票</span>
-                        </div>
-                        <div class="btn-box">
+                            <div class="credits">
+                                <span class="integral" ng-bind="item.integral"></span><span>票</span>
+                            </div>
                             <span class="button" ng-click="mv.topiao(item);" ng-class="{did:item.isTou}"></span>
                         </div>
                     </div>
@@ -64,7 +42,7 @@
     </div>
 </section>
 <footer class="footer">
-    <img src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/footer.png" alt="">
+    <div>本活动最终解释权归老板所有</div>
 </footer>
 
 <script type="text/ng-template" id="details.html">
@@ -96,6 +74,6 @@
 <script src="//yun.duiba.com.cn/admin/js/angular.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/angular-animate.min.js"></script>
 <script src="//yun.duiba.com.cn/admin/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script src="http://yangzuo.oss-cn-hangzhou.aliyuncs.com/ued/deGame-2.0.js"></script>
+<script src="//yun.duiba.com.cn/upload/tv01yj6geb.js"></script>
 </body>
 </html>

@@ -3,24 +3,24 @@ package cn.com.duiba.service;
 import cn.com.duiba.dao.BallotDao;
 import cn.com.duiba.dao.VoteLogDao;
 import cn.com.duiba.dao.WorksDao;
+import cn.com.duiba.dao.WriterDao;
 import cn.com.duiba.domain.dto.WorksDto;
 import cn.com.duiba.domain.dto.WorksJsonDto;
 import cn.com.duiba.domain.entity.BallotEntity;
 import cn.com.duiba.domain.entity.WorksEntity;
+import cn.com.duiba.domain.entity.WriterEntity;
 import cn.com.duiba.domain.enumeration.CompanyEnum;
 import cn.com.duiba.domain.param.WorksParams;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Function;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -34,12 +34,17 @@ public class WorksService {
     private BallotDao ballotDao;
     @Autowired
     private VoteLogDao voteLogDao;
+    @Autowired
+    private WriterDao writerDao;
 
     public ArrayListMultimap<Integer,JSONObject> getWorksDate(String token) throws Exception {
         List<WorksEntity> list = worksDao.findAllWorks();
         ArrayListMultimap<Integer,WorksEntity> multimap = ArrayListMultimap.create();
+
+        Set<Long> wirterIds =  Sets.newHashSet();
         for (WorksEntity it : list){
             multimap.put(it.getCompany(),it);
+            wirterIds.add(it.getWriterId());
         }
         Set<Long> isTouSet = Sets.newHashSet();
         if(StringUtils.isNotBlank(token)){
@@ -51,8 +56,15 @@ public class WorksService {
             isTouSet.addAll(ids);
         }
 
+        List<WriterEntity> writers = writerDao.findByIds(Lists.newArrayList(wirterIds));
+        Map<Long,String> writerMap = Maps.newHashMap();
+        for (WriterEntity it:writers){
+            writerMap.put(it.getId(),it.getWriterName());
+        }
+
         Transform transform = new Transform();
         transform.setIsTouSet(isTouSet);
+        transform.setWriterMap(writerMap);
 
         ArrayListMultimap<Integer,JSONObject> dataMap = ArrayListMultimap.create();
         for(CompanyEnum company : CompanyEnum.values()){
@@ -111,8 +123,14 @@ public class WorksService {
 
         private Set<Long> isTouSet;
 
+        private Map<Long,String> writerMap = Maps.newHashMap();
+
         public void setIsTouSet(Set<Long> isTouSet) {
             this.isTouSet = isTouSet;
+        }
+
+        public void setWriterMap(Map<Long, String> writerMap) {
+            this.writerMap = writerMap;
         }
 
         @Override
@@ -124,6 +142,7 @@ public class WorksService {
             json.put("integral",worksEntity.getScore());
             json.put("title",worksEntity.getTitle());
             json.put("isTou",isTouSet.contains(worksEntity.getId()));
+            json.put("writerName",writerMap.get(worksEntity.getWriterId()));
             return json;
         }
     }

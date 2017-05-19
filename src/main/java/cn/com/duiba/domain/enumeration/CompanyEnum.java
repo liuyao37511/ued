@@ -5,7 +5,8 @@ package cn.com.duiba.domain.enumeration;
  */
 public enum CompanyEnum {
     TUI_A(1,"推啊"),
-    MAI_LA(2,"麦啦");
+    MAI_LA(2,"麦啦"),
+    DUIBA(3,"兑吧");
 
     private Integer code;
     private String name;

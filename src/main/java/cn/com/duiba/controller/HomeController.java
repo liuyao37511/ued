@@ -43,8 +43,9 @@ public class HomeController {
         try{
             ArrayListMultimap<Integer,JSONObject> data = worksService.getWorksDate(token);
             JSONObject model = new JSONObject();
-            model.put(CompanyEnum.TUI_A.getCode().toString(),data.get(CompanyEnum.TUI_A.getCode()));
-            model.put(CompanyEnum.MAI_LA.getCode().toString(),data.get(CompanyEnum.MAI_LA.getCode()));
+            model.put(CompanyEnum.DUIBA.getCode().toString(),data.get(CompanyEnum.DUIBA.getCode()));
+//            model.put(CompanyEnum.TUI_A.getCode().toString(),data.get(CompanyEnum.TUI_A.getCode()));
+//            model.put(CompanyEnum.MAI_LA.getCode().toString(),data.get(CompanyEnum.MAI_LA.getCode()));
             return JsonRender.successResult(model);
         }catch (Exception e){
             e.printStackTrace();

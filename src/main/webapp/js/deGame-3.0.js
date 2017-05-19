@@ -1,8 +1,29 @@
 var app = angular.module('main',['ui.bootstrap',"ngAnimate"]);
+app.run(Run);
 app.controller("mainCtrl",MainCtrl);
 app.controller("detailsCtrl",DetailsCtrl);
-app.controller("InputVoteCode",InputVoteCode);
 app.controller("DoVoteCtrl",DoVoteCtrl);
+
+Run.$inject = ["$http"];
+function Run($http){
+    //生成token
+    var token = localStorage.voteCode;
+    if(!token){
+        setToken();
+    }
+
+    function setToken(){
+        var token = new Date().getTime();
+        $http.get("/yangzhengToken?token="+token).success(function(data){
+            if(data.success){
+                localStorage.voteCode = data.token;
+            }else{
+                setToken();
+            }
+        });
+    }
+}
+
 
 MainCtrl.$inject = ["$uibModal","$http"];
 function MainCtrl($uibModal,$http) {
@@ -10,6 +31,7 @@ function MainCtrl($uibModal,$http) {
 
     mv.tuiaList = [];
     mv.mailaList = [];
+    mv.duibaList = [];
 
     mv.openDetails = openDetails;
     mv.topiao = topiao;
@@ -21,7 +43,7 @@ function MainCtrl($uibModal,$http) {
             templateUrl: 'details.html',
             controller: 'detailsCtrl',
             controllerAs:'p',
-            backdrop:'static',
+            windowClass:"tupian",
             resolve:{
                 id:id
             }
@@ -34,7 +56,6 @@ function MainCtrl($uibModal,$http) {
         }
         var token = localStorage.voteCode;
         if(!token){
-            openVote();
             return;
         }
         var modalInstance = $uibModal.open({
@@ -52,7 +73,7 @@ function MainCtrl($uibModal,$http) {
             var params = {
                 token:token,
                 worksId:item.id
-            }
+            };
             $http.post("/toupiao",params).success(function(data){
                 if(data.success){
                     loadData();
@@ -60,21 +81,6 @@ function MainCtrl($uibModal,$http) {
                     alert(data.message);
                 }
             })
-        });
-    }
-
-    function openVote(){
-        var modalInstance = $uibModal.open({
-            size:'sm',
-            animation: true,
-            templateUrl: 'vote.html',
-            controller: 'InputVoteCode',
-            controllerAs:'p',
-            backdrop:'static',
-        });
-        modalInstance.result.then(function(token){
-            localStorage.voteCode = token;
-            loadData();
         });
     }
 
@@ -87,62 +93,45 @@ function MainCtrl($uibModal,$http) {
             if(data.success){
                 mv.tuiaList = [].concat(data["1"]);
                 mv.mailaList = [].concat(data["2"]);
+                mv.duibaList = [].concat(data["3"]);
             }else{
                 alert(data.message);
             }
         });
     }
-
     loadData();
 }
 
-DetailsCtrl.$inject = ["$uibModalInstance","id","$http"];
-function DetailsCtrl($uibModalInstance,id,$http) {
+DetailsCtrl.$inject = ["$uibModalInstance","id","$http","$scope"];
+function DetailsCtrl($uibModalInstance,id,$http,$scope) {
     var mv = this;
+
+
 
     $http.get("/getOneWorksContext?id="+id).success(function(data){
         mv.defImage = data.item.defImage;
-    })
+    });
 
     mv.close = function () {
         $uibModalInstance.dismiss();
-    }
-}
+    };
 
-InputVoteCode.$inject = ["$uibModalInstance","$http"];
-function InputVoteCode($uibModalInstance,$http){
-    var mv = this;
-    mv.submit = submit;
+    $uibModalInstance.rendered.then(function(){
 
-    if(!!localStorage.voteCode){
-        $uibModalInstance.dismiss();
-    }
-
-    function submit(){
-        if(!mv.token){
-            return;
-        }
-        console.log("woo");
-        $http.get("/yangzhengToken?token="+mv.token).success(function(data){
-            if(data.success){
-                $uibModalInstance.close(mv.token);
-            }else{
-                alert(data.message);
-            }
+        $(".tupian").on("click",function(){
+            $uibModalInstance.dismiss();
+            $scope.$digest();
         });
-    }
-
-    mv.close = function () {
-        $uibModalInstance.dismiss();
-    }
+    });
 }
-DoVoteCtrl.$inject = ["$uibModalInstance","works"]
+
+DoVoteCtrl.$inject = ["$uibModalInstance","works"];
 function DoVoteCtrl($uibModalInstance,works){
     var mv = this;
     mv.title = works.title;
     mv.submit = function(){
         $uibModalInstance.close();
-    }
+    };
 
     mv.close = function () {
         $uibModalInstance.dismiss();

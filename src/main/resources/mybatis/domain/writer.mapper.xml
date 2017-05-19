@@ -23,6 +23,15 @@
         VALUES (#{account},#{password},#{writerName},now(),now())
     </insert>
 
+    <select id="findByIds" resultType="WriterEntity" parameterType="Map">
+        select <include refid="fields" />
+        from writer
+        where id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <sql id="fields">
         id as id,
         account as account,

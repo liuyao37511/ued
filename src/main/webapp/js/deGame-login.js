@@ -93,7 +93,7 @@ function SignController($state,$http){
 MainController.$inject=['$http','Upload','$q'];
 function MainController($http,Upload,$q){
     var mv = this;
-    mv.company=1;
+    mv.company=3;
     mv.selectCompany = selectCompany;
     mv.submit = submit;
     mv.uploadMainImage = uploadMainImage;
