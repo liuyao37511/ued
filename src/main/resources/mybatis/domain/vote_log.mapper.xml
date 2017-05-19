@@ -10,8 +10,8 @@
     </select>
 
     <insert id="insertLog" parameterType="Map">
-        INSERT INTO vote_log(ballot_id,works_id,gmt_create,gmt_modified)
-        VALUES (#{ballotId},#{worksId},now(),now())
+        INSERT INTO vote_log(ballot_id,works_id,ip,gmt_create,gmt_modified)
+        VALUES (#{ballotId},#{worksId},#{ip},now(),now())
     </insert>
 
     <sql id="fields">

@@ -79,14 +79,14 @@ public class RequestParams {
 
     public static String parseIp(HttpServletRequest request){
         String ip = request.getHeader("x-forwarded-for");
-        if(ip!=null && ip.trim().length()>0){
-            String[] ips=ip.trim().split(",");
-            int size=ips.length;
-            if(size>0){
-                ip=ips[size-1].trim();
+        if (ip != null && ip.trim().length() > 0) {
+            String[] ips = ip.trim().split(",");
+            int size = ips.length;
+            if (size > 0) {
+                ip = ips[0].trim();
             }
         }
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Real-IP");
         }
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
@@ -101,8 +101,8 @@ public class RequestParams {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        if(ip!=null && ip.startsWith("0:0:0:0")){
-            ip=LOCALHOST_IP;
+        if (ip != null && ip.startsWith("0:0:0:0")) {
+            ip = LOCALHOST_IP;
         }
         return ip;
     }
