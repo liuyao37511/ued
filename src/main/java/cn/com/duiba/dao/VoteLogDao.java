@@ -16,10 +16,11 @@ public class VoteLogDao extends BaseDao {
         return selectList("findWorksIdByBallotId",ballotId);
     }
 
-    public int insertLog(Long worksId,Long ballotId){
+    public int insertLog(Long worksId, Long ballotId, String ip){
         Map<String,Object> params = Maps.newHashMap();
         params.put("worksId",worksId);
         params.put("ballotId",ballotId);
+        params.put("ip",ip);
         return insert("insertLog",params);
     }
 }

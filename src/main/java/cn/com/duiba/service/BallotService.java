@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import cn.com.duiba.domain.param.ToupiaoParams;
+import cn.com.duiba.mvc.RequestTool;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import org.apache.commons.lang.StringUtils;
@@ -71,8 +72,10 @@ public class BallotService {
         if(companySet.count(works.getCompany())>=canTouNum){
             throw new Exception("每个公司栏目只能投出"+canTouNum+"票");
         }
+        String ip = RequestTool.getIp();
+
         //插入投票记录
-        voteLogDao.insertLog(params.getWorksId(),entity.getId());
+        voteLogDao.insertLog(params.getWorksId(),entity.getId(),ip);
         //票数加1
         worksDao.incrScope(params.getWorksId());
 

@@ -10,6 +10,7 @@ public class VoteLogEntity {
     private Long id;
     private Long worksId;//作品id
     private Long ballotId;//选票Id
+    private String ip;
     private Date gmtCreate;
     private Date gmtModified;
 
@@ -35,6 +36,14 @@ public class VoteLogEntity {
 
     public void setBallotId(Long ballotId) {
         this.ballotId = ballotId;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public Date getGmtCreate() {
